@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free MP3 Merger Online: Join MP3 Files in Your Browser | Soundkit</title>
+<meta name="description" content="Join several MP3 files into one for free. Add tracks, put them in order and download. No signup, no upload, no watermark.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free MP3 Merger Online | Soundkit">
+<meta property="og:description" content="Join MP3 files in your browser. Nothing is uploaded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js" defer></script>
+<style>
+:root{--ink:#17171b;--muted:#3b3841;--glass:rgba(255,255,255,.48);--line:rgba(255,255,255,.75)}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{min-height:100vh;font-family:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);line-height:1.5;
+background:radial-gradient(55% 40% at 8% 6%,#ffe3cf 0,transparent 65%),radial-gradient(55% 40% at 95% 4%,#ff6f8e 0,transparent 65%),radial-gradient(70% 45% at 50% 52%,#cdb8f4 0,transparent 70%),radial-gradient(60% 40% at 0 100%,#8fe5d9 0,transparent 65%),radial-gradient(60% 40% at 100% 100%,#a6ece4 0,transparent 65%),#f7b9a6}
+a{color:inherit;text-decoration:none}
+:focus-visible,label:focus-within{outline:3px solid var(--ink);outline-offset:4px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.04em}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center}
+nav.top{display:none;gap:22px;font-size:14px;color:var(--muted)}
+.pill,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 20px;border-radius:999px;border:0;background:var(--ink);color:#fff;font:500 15px "Outfit",system-ui,sans-serif;cursor:pointer}
+.btn.alt{background:rgba(255,255,255,.7);color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{opacity:.5;cursor:default}
+.hero{text-align:center;padding:36px 0 22px}
+h1{font-size:clamp(34px,9vw,56px);line-height:1.08;font-weight:300;letter-spacing:-.02em;margin:0 auto 12px}
+h1 b{font-weight:600}
+.sub{max-width:500px;margin:0 auto;color:var(--muted)}
+.panel{padding:20px;border-radius:26px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 50px -20px rgba(90,40,90,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+.drop{display:grid;place-items:center;gap:12px;text-align:center;min-height:200px;padding:28px 16px;border:1.5px dashed rgba(23,23,27,.4);border-radius:20px;cursor:pointer}
+.drop.over{background:rgba(255,255,255,.55)}
+.drop small{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.list{list-style:none;padding:0;display:grid;gap:10px}
+.list li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+.nm{flex:1 1 140px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.list small{color:var(--muted);font-variant-numeric:tabular-nums}
+.acts{display:flex;gap:4px;margin-left:auto}
+.ib{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--ink);font-size:14px;cursor:pointer}
+.ib[disabled]{opacity:.35;cursor:default}
+#total{margin:14px 0 4px;font-size:14px;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+progress{width:100%;height:8px;margin-top:14px;accent-color:var(--ink)}
+#msg{min-height:24px;margin-top:12px;font-size:15px}
+#msg.err{color:#a1122f;font-weight:500}
+.info{padding:34px 0 10px}
+.info h2{font-size:24px;font-weight:600;margin:26px 0 10px}
+.info ol{padding-left:20px;color:var(--muted)}
+.info li{margin-bottom:6px}
+details{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+summary{font-weight:500;cursor:pointer;min-height:24px}
+details p{margin-top:8px;color:var(--muted)}
+.more{margin-top:22px;color:var(--muted)}
+.more a,footer a{text-decoration:underline;text-underline-offset:3px}
+footer{text-align:center;font-size:13px;color:var(--muted);padding:26px 0 32px}
+.fnav{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 22px;margin-bottom:8px}
+.fnav a{display:inline-block;padding:8px 0;font-size:14px}
+@media(min-width:720px){nav.top{display:flex}.panel{padding:28px}.hero{padding-top:56px}body{background-attachment:fixed}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/" aria-label="Soundkit home"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></span>SOUNDKIT</a>
+  <nav class="top" aria-label="Main"><a href="/mp3-cutter">MP3 Cutter</a><a href="/mp3-merger">MP3 Merger</a><a href="https://text-to-speech-web-six.vercel.app/">Text to Speech</a></nav>
+  <a class="pill" href="/">All tools</a>
+</header>
+
+<main>
+<section class="hero">
+  <h1>Free MP3 merger <b>online.</b></h1>
+  <p class="sub">Add your tracks, put them in the order you want, and join them into one MP3. Nothing is uploaded.</p>
+</section>
+
+<section class="panel" aria-label="MP3 merger">
+  <label class="drop" id="drop">
+    <input class="sr" type="file" id="file" accept="audio/*,.mp3,.wav,.m4a,.ogg" multiple>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+    <span class="btn">Choose audio files</span>
+    <small>or drop them here. MP3, WAV, M4A or OGG. Up to 20 files.</small>
+  </label>
+
+  <div id="editor" hidden>
+    <ul class="list" id="list"></ul>
+    <p id="total"></p>
+    <div class="row">
+      <label class="btn alt">Add more files<input class="sr" type="file" id="more" accept="audio/*,.mp3,.wav,.m4a,.ogg" multiple></label>
+      <button class="btn alt" id="clear" type="button">Clear all</button>
+    </div>
+    <div class="row"><button class="btn" id="dl" type="button">Merge and download MP3</button></div>
+    <progress id="pg" max="100" value="0" hidden></progress>
+  </div>
+  <p id="msg" role="status"></p>
+</section>
+
+<section class="info">
+  <h2>How to merge MP3 files</h2>
+  <ol><li>Choose two or more audio files from your device.</li><li>Use the up and down buttons to put them in the right order.</li><li>Press Merge and download MP3.</li></ol>
+  <h2>Questions</h2>
+  <details><summary>Are my files uploaded anywhere?</summary><p>No. Your files are read and joined inside your browser, and they never leave your device.</p></details>
+  <details><summary>Can I change the order of the tracks?</summary><p>Yes. Use the up and down buttons next to each track. The merged file plays in the order shown in the list.</p></details>
+  <details><summary>What if my files have different quality?</summary><p>That is fine. The tracks are matched to the same sample rate and the result is saved as a 128 kbps MP3, so there can be a small quality difference from a high-quality original.</p></details>
+  <details><summary>How many files can I join?</summary><p>Up to 20 files. For smooth results, especially on phones, keep the total under 100 MB.</p></details>
+  <p class="more">Need to trim a track first? Try the <a href="/mp3-cutter">MP3 cutter</a>.</p>
+</section>
+</main>
+
+<footer>
+  <nav class="fnav" aria-label="Footer"><a href="/mp3-cutter">MP3 Cutter</a><a href="/mp3-merger">MP3 Merger</a><a href="https://text-to-speech-web-six.vercel.app/">Free text to speech</a></nav>
+  <p>Free browser-based audio tools. No signup required.</p>
+</footer>
+</div>
+
+<script>
+const $=i=>document.getElementById(i);
+const MAX=20,AC=window.AudioContext||window.webkitAudioContext;
+let ctx,tracks=[],busy=false;
+const fmt=t=>{const m=Math.floor(t/60);return m+':'+String(Math.floor(t-m*60)).padStart(2,'0')};
+const say=(t,e)=>{$('msg').textContent=t||'';$('msg').className=e?'err':''};
+const tick=()=>new Promise(r=>setTimeout(r));
+const cv=v=>{v=Math.max(-1,Math.min(1,v));return v<0?v*32768:v*32767};
+
+function ib(label,text,fn,off){
+  const b=document.createElement('button');
+  b.type='button';b.className='ib';b.textContent=text;b.disabled=!!off;
+  b.setAttribute('aria-label',label);b.onclick=fn;return b;
+}
+function render(){
+  const ul=$('list');ul.innerHTML='';
+  tracks.forEach((t,i)=>{
+    const li=document.createElement('li'),nm=document.createElement('span'),du=document.createElement('small'),ac=document.createElement('div');
+    nm.className='nm';nm.textContent=(i+1)+'. '+t.file.name;
+    du.textContent=fmt(t.dur);ac.className='acts';
+    ac.append(
+      ib('Move '+t.file.name+' up','▲',()=>move(i,-1),busy||i===0),
+      ib('Move '+t.file.name+' down','▼',()=>move(i,1),busy||i===tracks.length-1),
+      ib('Remove '+t.file.name,'✕',()=>{tracks.splice(i,1);render()},busy)
+    );
+    li.append(nm,du,ac);ul.append(li);
+  });
+  const sum=tracks.reduce((a,t)=>a+t.dur,0);
+  $('total').textContent=tracks.length+(tracks.length===1?' file, ':' files, ')+fmt(sum)+' in total'+(tracks.length<2?'. Add at least one more file to merge.':'');
+  $('editor').hidden=!tracks.length;$('drop').hidden=!!tracks.length;
+  $('dl').disabled=busy||tracks.length<2;
+  $('clear').disabled=busy;
+}
+function move(i,d){const j=i+d;[tracks[i],tracks[j]]=[tracks[j],tracks[i]];render()}
+
+async function add(list){
+  const files=[...list];if(!files.length)return;
+  if(tracks.length+files.length>MAX){say('You can merge up to '+MAX+' files at a time.',1);return}
+  const size=[...tracks.map(t=>t.file),...files].reduce((a,f)=>a+f.size,0);
+  if(size>100*1048576&&!confirm('These files are over 100 MB in total and may be slow or fail on a phone. Continue?'))return;
+  ctx=ctx||new AC();busy=true;render();const bad=[];
+  for(let k=0;k<files.length;k++){
+    say('Reading file '+(k+1)+' of '+files.length+'...');
+    try{
+      const b=await ctx.decodeAudioData(await files[k].arrayBuffer());
+      tracks.push({file:files[k],dur:b.duration,ch:b.numberOfChannels});
+    }catch(e){bad.push(files[k].name)}
+    await tick();
+  }
+  busy=false;render();
+  say(bad.length?'Skipped because it could not be read: '+bad.join(', ')+'.':'',bad.length>0);
+}
+
+async function merge(){
+  if(busy||tracks.length<2)return;
+  if(!window.lamejs){say('The MP3 encoder did not load. Check your connection and reload the page.',1);return}
+  busy=true;render();const pg=$('pg');pg.hidden=false;pg.value=0;say('Merging your tracks...');
+  try{
+    const sr=ctx.sampleRate,ch=tracks.some(t=>t.ch>1)?2:1,B=1152,out=[];
+    const total=tracks.reduce((a,t)=>a+t.dur,0),enc=new lamejs.Mp3Encoder(ch,sr,128);
+    let done=0;
+    for(const t of tracks){
+      const buf=await ctx.decodeAudioData(await t.file.arrayBuffer());
+      const L=buf.getChannelData(0),R=buf.numberOfChannels>1?buf.getChannelData(1):L;
+      for(let i=0;i<L.length;i+=B){
+        const e=Math.min(i+B,L.length),l=new Int16Array(e-i),r=ch>1?new Int16Array(e-i):null;
+        for(let j=i;j<e;j++){l[j-i]=cv(L[j]);if(r)r[j-i]=cv(R[j])}
+        const m=r?enc.encodeBuffer(l,r):enc.encodeBuffer(l);
+        if(m.length)out.push(m);
+        if(((i/B)&255)===0){pg.value=(done+i/sr)/total*100;await tick()}
+      }
+      done+=buf.duration;
+    }
+    const z=enc.flush();if(z.length)out.push(z);
+    const url=URL.createObjectURL(new Blob(out,{type:'audio/mpeg'})),a=document.createElement('a');
+    a.href=url;a.download='merged.mp3';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+    pg.value=100;say('Done. Your merged MP3 is downloading.');
+  }catch(e){say('Something went wrong while merging. Try fewer files or a different file.',1)}
+  busy=false;render();
+}
+
+['file','more'].forEach(id=>$(id).addEventListener('change',e=>{add(e.target.files);e.target.value=''}));
+const dz=$('drop');
+['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
+dz.addEventListener('drop',e=>add(e.dataTransfer.files));
+$('dl').addEventListener('click',merge);
+$('clear').addEventListener('click',()=>{tracks=[];$('pg').hidden=true;say('');render()});
+</script>
+</body>
+</html>
